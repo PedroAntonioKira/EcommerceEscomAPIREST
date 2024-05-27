@@ -56,3 +56,65 @@ func InsertCategory(body string, User string) (int, string) {
 	return 200, "{ CategID: " + strconv.Itoa(int(result)) + "}"
 
 }
+
+func UpdateCategory(body string, User string, id int) (int, string) {
+	var t models.Category
+
+	err := json.Unmarshal([]byte(body), &t)
+
+	//Verificamos que no tengamos un error al decodificar la información en la estructura.
+	if err != nil {
+		return 400, "Error en los datos recibidos con el error: " + err.Error()
+	}
+
+	//Verificamos que nos mande la información
+	if len(t.CategName) == 0 && len(t.CategPath) == 0 {
+		return 400, "Debe especificar CategName y/o CategPath para actualizar"
+	}
+
+	//Verificamos si User Is Admin
+	isAdmin, msg := bd.UserIsAdmin(User)
+
+	//Verificamos si efectivamente no es admin
+	if !isAdmin {
+		return 400, msg
+	}
+
+	// el id de la categoria lo asignamos que nos pasan como parametro
+	t.CategID = id
+
+	err2 := bd.UpdateCategory(t)
+
+	if err2 != nil {
+		return 400, "Ocurrio un error al intentar realziar el UPDATE de la categoria" + strconv.Itoa(id) + " > " + err2.Error()
+	}
+
+	return 200, "Update OK"
+
+}
+
+func DeleteCategory(body string, User string, id int) (int, string) {
+
+	// Validamos que nos hayan pasado un Id valido
+	if id == 0 {
+		return 400, "Debe de especificar el ID de la categoria a borrar."
+	}
+
+	//Verificamos si User Is Admin
+	isAdmin, msg := bd.UserIsAdmin(User)
+
+	//Verificamos si efectivamente no es admin
+	if !isAdmin {
+		return 400, msg
+	}
+
+	//Eliminamos la categoria que corresponde al id
+	err := bd.DeleteCategory(id)
+
+	// Validamos que no haya surgido un error al eliminar la categoria
+	if err != nil {
+		return 400, "Ocurrió un error al intentar realziar el DELETE de la categoria" + strconv.Itoa(id) + " > " + err.Error()
+	}
+
+	return 200, "Delete OK"
+}
