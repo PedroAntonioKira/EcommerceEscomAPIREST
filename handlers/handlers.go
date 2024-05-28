@@ -33,6 +33,8 @@ func Manejadores(path string, method string, body string, headers map[string]str
 	idn, _ := strconv.Atoi(id)
 
 	fmt.Println("Mostramos ID: " + id)
+	fmt.Println("Mostramos METHOD: " + method)
+	fmt.Println("Mostramos PATH: " + path)
 	//validamos la autorización del token
 	isOk, statusCode, user := validoAuthorization(path, method, headers)
 
@@ -75,8 +77,8 @@ func Manejadores(path string, method string, body string, headers map[string]str
 }
 
 func validoAuthorization(path string, method string, headers map[string]string) (bool, int, string) {
-	if (path == "product" && method == "GET") ||
-		(path == "category" && method == "GET") {
+	if (path == "/ecommerceEscom/product" && method == "GET") ||
+		(path == "/ecommerceEscom/category" && method == "GET") {
 		return true, 200, ""
 	}
 
@@ -147,8 +149,11 @@ func ProcesoCategory(body string, path string, method string, user string, id in
 		return routers.UpdateCategory(body, user, id)
 	case "DELETE":
 		return routers.DeleteCategory(body, user, id)
+	case "GET":
+		fmt.Println("Si entramos A GET")
+		return routers.SelectCategories(body, request)
 	}
-	return 400, "Method Invalid 22"
+	return 400, "Method Invalid Para Categorias, revisar en el codigo"
 }
 
 func ProcesoOrder(body string, path string, method string, user string, id int, request events.APIGatewayProxyRequest) (int, string) {
