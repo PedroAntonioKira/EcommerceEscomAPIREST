@@ -15,7 +15,7 @@ REM SE CONFIGURA EL USERNAME ASOCIADO AL GIT QUE SE VA A SUBIR
 git config --global user.name "PedroAntonioKira"
 
 REM SE AGREGA UN COMENTARIO
-git commit -m "Primera Prueba Completa para conexión con el resto del backend y apigateway parte 01 Category"
+git commit -m "Primera Prueba Completa para conexión con el resto del backend y apigateway parte 02 Products"
 
 REM SUBE TODO EL PROYECTO A GITHUB
 git push

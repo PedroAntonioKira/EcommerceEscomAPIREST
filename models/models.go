@@ -36,3 +36,19 @@ type Category struct {
 	CategName string `json:"categName"`
 	CategPath string `json:"categPath"`
 }
+
+//Estructura para products
+
+type Product struct {
+	ProdId         int     `json:"prodID"`
+	ProdTitle      string  `json:"prodTitle"`
+	ProdDescrition string  `json:"prodDescription"`
+	ProdCreateAt   string  `json:"prodCreateAt"`
+	ProdUpdated    string  `json:"prodUpdated"`
+	ProdPrice      float64 `json:"prodPrice,omitempty"`
+	ProdStock      int     `json:"prodStock"`
+	ProdCategId    int     `json:"prodCategId"`
+	ProdPath       string  `json:"prodPath"`
+	ProdSearch     string  `json:"search,omitempty"`
+	ProdCategPath  string  `json:"categPath,omitempty"`
+}

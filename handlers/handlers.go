@@ -58,7 +58,7 @@ func Manejadores(path string, method string, body string, headers map[string]str
 	//	return ProcesoUsers(body, path, method, user, id, request)
 	case "prod":
 		fmt.Println("Entramos a Products")
-	//	return ProcesoProducts(body, path, method, user, idn, request)
+		return ProcesoProducts(body, path, method, user, idn, request)
 	case "stoc":
 		fmt.Println("Entramos a Stock")
 	//	return ProcesoStock(body, path, method, user, idn, request)
@@ -127,6 +127,22 @@ func ProcesoUsers(body string, path string, method string, user string, id strin
 
 func ProcesoProducts(body string, path string, method string, user string, id int, request events.APIGatewayProxyRequest) (int, string) {
 
+	//Validamos el metodo Que estamos Recibiendo
+	switch method {
+	case "POST":
+		fmt.Println("Si entramos A POST de Product")
+		return routers.InsertProduct(body, user)
+	case "PUT":
+		fmt.Println("Si entramos A PUT de Product")
+		//return routers.UpdateCategory(body, user, id)
+	case "DELETE":
+		fmt.Println("Si entramos A DELETE de Product")
+		//return routers.DeleteCategory(body, user, id)
+	case "GET":
+		fmt.Println("Si entramos A GET de Product")
+		//return routers.SelectCategories(body, request)
+	}
+
 	return 400, "Method Invalid"
 }
 
@@ -142,15 +158,19 @@ func ProcesoAddress(body string, path string, method string, user string, id int
 
 func ProcesoCategory(body string, path string, method string, user string, id int, request events.APIGatewayProxyRequest) (int, string) {
 
+	//Validamos el metodo Que estamos Recibiendo
 	switch method {
 	case "POST":
+		fmt.Println("Si entramos A POST de Category")
 		return routers.InsertCategory(body, user)
 	case "PUT":
+		fmt.Println("Si entramos A PUT de Category")
 		return routers.UpdateCategory(body, user, id)
 	case "DELETE":
+		fmt.Println("Si entramos A DELETE de Category")
 		return routers.DeleteCategory(body, user, id)
 	case "GET":
-		fmt.Println("Si entramos A GET")
+		fmt.Println("Si entramos A GET de Category")
 		return routers.SelectCategories(body, request)
 	}
 	return 400, "Method Invalid Para Categorias, revisar en el codigo"

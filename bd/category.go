@@ -176,7 +176,11 @@ func SelectCategories(CategId int, Slug string) ([]models.Category, error) {
 
 	var rows *sql.Rows
 
-	rows, err = Db.Query(sentencia)
+	var err003 error
+	rows, err003 = Db.Query(sentencia)
+
+	fmt.Println(" Mostramos error de  Db.Query(sentencia): ")
+	fmt.Println(err003)
 
 	for rows.Next() {
 		var c models.Category
