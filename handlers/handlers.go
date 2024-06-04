@@ -134,13 +134,13 @@ func ProcesoProducts(body string, path string, method string, user string, id in
 		return routers.InsertProduct(body, user)
 	case "PUT":
 		fmt.Println("Si entramos A PUT de Product")
-		//return routers.UpdateCategory(body, user, id)
+		return routers.UpdateProduct(body, user, id)
 	case "DELETE":
 		fmt.Println("Si entramos A DELETE de Product")
-		//return routers.DeleteCategory(body, user, id)
+		return routers.DeleteProduct(user, id)
 	case "GET":
 		fmt.Println("Si entramos A GET de Product")
-		//return routers.SelectCategories(body, request)
+		return routers.SelectProduct(request)
 	}
 
 	return 400, "Method Invalid"

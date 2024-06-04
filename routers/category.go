@@ -58,8 +58,10 @@ func InsertCategory(body string, User string) (int, string) {
 }
 
 func UpdateCategory(body string, User string, id int) (int, string) {
+	//creamos la variable de la estructura que almacenará todo lo de la categoria relacionada
 	var t models.Category
 
+	//Decodificamos el json que nos mandan en el endpoint en la estructura del producto para poder guardarla.
 	err := json.Unmarshal([]byte(body), &t)
 
 	//Verificamos que no tengamos un error al decodificar la información en la estructura.

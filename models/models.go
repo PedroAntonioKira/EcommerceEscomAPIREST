@@ -52,3 +52,10 @@ type Product struct {
 	ProdSearch     string  `json:"search,omitempty"`
 	ProdCategPath  string  `json:"categPath,omitempty"`
 }
+
+//Nuevo modelo para Select Productos
+
+type ProductResp struct {
+	TotalItems int       `json:"totalItems"`
+	Data       []Product `json:"data"` //Nuestro slice (arreglo) de productos
+}
